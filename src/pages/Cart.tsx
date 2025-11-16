@@ -133,7 +133,7 @@ const Cart = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {cartItems.map((item) => (
-                <Card key={item.id} className="p-6">
+                <Card key={item.productId} className="p-6">
                   <div className="flex gap-4">
                     <div className="flex-1">
                       <h3 className="font-semibold text-lg mb-1">{item.name}</h3>
@@ -147,7 +147,7 @@ const Cart = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                             disabled={item.quantity <= 1}
                           >
                             <Minus className="w-4 h-4" />
@@ -158,7 +158,7 @@ const Cart = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => updateQuantity(item.productId, item.quantity + 1)}
                           >
                             <Plus className="w-4 h-4" />
                           </Button>
@@ -168,7 +168,7 @@ const Cart = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeItem(item.productId)}
                           className="text-destructive hover:text-destructive"
                         >
                           <Trash2 className="w-4 h-4 mr-2" />
