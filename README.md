@@ -61,12 +61,12 @@
 ```bash
 # 1. Clone repository
 git clone <your-repo-url>
-cd swift-checkout-fun-main
+cd vibe-commerce
 
 # 2. Install frontend dependencies
 npm install
 
-# 3. Install backend dependencies  
+# 3. Install backend dependencies
 cd backend
 npm install
 
@@ -86,7 +86,7 @@ npm run dev
 # 7. Start frontend (Terminal 2)
 cd ..
 npm run dev
-# ✅ Frontend: http://localhost:8081
+# ✅ Frontend: http://localhost:8080
 ```
 
 ### Verify Setup
@@ -310,28 +310,28 @@ swift-checkout-fun-main/
 ## 📸 Screenshots
 
 ### Product Catalog
-![Products](https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=400&fit=crop)  
+![Products](https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=400&fit=crop)
 *10 premium tech products with beautiful cards and "Add to Cart" buttons*
 
 ### Shopping Cart
-![Cart](https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=400&fit=crop)  
+![Cart](https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=400&fit=crop)
 *Real-time cart with quantity controls, remove buttons, and auto-calculated total*
 
 ### Checkout & Receipt
-![Checkout](https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop)  
+![Checkout](https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop)
 *Validated checkout form with order receipt modal (orderId, timestamp, total)*
 
 ### Mobile Responsive
-![Mobile](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=600&fit=crop)  
+![Mobile](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=600&fit=crop)
 *Fully responsive design optimized for all screen sizes*
 
 ---
 
 ## 🎬 Demo Video
 
-**Status**: Ready to record  
-**Duration**: 1-2 minutes  
-**Platform**: Loom / YouTube unlisted  
+**Status**: Ready to record
+**Duration**: 1-2 minutes
+**Platform**: Loom / YouTube unlisted
 **Script**: See [DEMO.md](DEMO.md)
 
 **What the demo shows**:
@@ -577,11 +577,11 @@ For questions:
 
 **Vibe Commerce** is a complete, production-ready full-stack e-commerce cart that:
 
-✅ Meets **100% of assignment requirements**  
-✅ Implements **all 3 bonus features**  
-✅ Uses **modern tech stack** (React, TypeScript, Node, MongoDB)  
-✅ Includes **comprehensive documentation** (8 files)  
-✅ Provides **excellent UX** (responsive, loading states, validation)  
+✅ Meets **100% of assignment requirements**
+✅ Implements **all 3 bonus features**
+✅ Uses **modern tech stack** (React, TypeScript, Node, MongoDB)
+✅ Includes **comprehensive documentation** (8 files)
+✅ Provides **excellent UX** (responsive, loading states, validation)
 ✅ Follows **best practices** (error handling, type safety, clean code)
 
 **Built for Vibe Commerce Full Stack Coding Assignment**
@@ -597,6 +597,80 @@ For questions:
 [![Node.js](https://img.shields.io/badge/Node.js-Express-green.svg)](https://nodejs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green.svg)](https://www.mongodb.com/)
 
-**⭐ Ready for Submission ⭐**
+**⭐ Ready for Production Deployment ⭐**
 
 </div>
+
+---
+
+## 🚀 Deployment Guide
+
+### Quick Deploy with Docker
+```bash
+# Development environment
+./deploy.sh dev
+
+# Production environment
+./deploy.sh docker
+```
+
+### Cloud Deployment Options
+
+#### Option 1: Render (Recommended)
+1. **Backend**: Deploy as Web Service
+   - Root Directory: `backend`
+   - Build: `npm install`
+   - Start: `npm start`
+   - Add MongoDB URI environment variable
+
+2. **Frontend**: Deploy as Static Site
+   - Build: `npm install && npm run build`
+   - Publish Directory: `dist`
+   - Add backend API URL environment variable
+
+#### Option 2: Railway + Vercel
+```bash
+# Deploy backend to Railway
+cd backend && railway up
+
+# Deploy frontend to Vercel
+cd .. && vercel --prod
+```
+
+#### Option 3: Docker Self-Hosting
+```bash
+# Clone and configure
+git clone <repo-url>
+cd vibe-commerce
+cp .env.example .env  # Configure variables
+
+# Deploy full stack
+docker-compose up --build -d
+```
+
+### 📋 Environment Variables
+
+**Backend (.env)**:
+```env
+NODE_ENV=production
+PORT=5000
+MONGODB_URI=mongodb+srv://...
+MOCK_USER_ID=user_123456
+```
+
+**Frontend (.env)**:
+```env
+VITE_API_URL=https://your-api.com/api
+```
+
+### 📊 Health Checks
+- **Backend**: `GET /api/health`
+- **Frontend**: `GET /health`
+
+### 📚 Deployment Documentation
+- 📖 [PRODUCTION_DEPLOYMENT.md](PRODUCTION_DEPLOYMENT.md) - Complete guide
+- 📖 [DEPLOYMENT_SUMMARY.md](DEPLOYMENT_SUMMARY.md) - Quick overview
+- 🐳 [docker-compose.yml](docker-compose.yml) - Container setup
+- ⚙️ [deploy.sh](deploy.sh) - Automated deployment
+
+**🎉 Your app is production-ready with CI/CD, monitoring, and multiple deployment options!**

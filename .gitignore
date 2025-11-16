@@ -17,6 +17,11 @@ dist-ssr
 .env.local
 .env.production
 .env.development
+.env.*.local
+
+# Docker
+.dockerignore
+docker-compose.override.yml
 
 # Editor directories and files
 .vscode/*

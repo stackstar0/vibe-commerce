@@ -7,7 +7,14 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "seed": "node scripts/seedData.js"
+    "seed": "node scripts/seedData.js",
+    "prod": "NODE_ENV=production node server.js",
+    "docker:build": "docker build -t vibe-commerce-backend .",
+    "docker:run": "docker run -p 5000:5000 vibe-commerce-backend",
+    "docker:dev": "docker build -f Dockerfile.dev -t vibe-commerce-backend-dev . && docker run -p 5000:5000 vibe-commerce-backend-dev",
+    "test": "echo \"No tests specified\" && exit 0",
+    "deploy:prod": "npm run prod",
+    "health-check": "curl -f http://localhost:5000/api/health || exit 1"
   },
   "keywords": [
     "ecommerce",

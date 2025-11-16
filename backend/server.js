@@ -16,8 +16,12 @@ connectDB();
 const app = express();
 
 // Middleware
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [process.env.CORS_ORIGIN, 'https://your-frontend-domain.com']
+  : ['http://localhost:8080', 'http://localhost:8081', 'http://localhost:5173', 'http://localhost:3000'];
+
 app.use(cors({
-  origin: ['http://localhost:8080', 'http://localhost:8081', 'http://localhost:5173', 'http://localhost:3000'],
+  origin: allowedOrigins.filter(Boolean),
   credentials: true,
 }));
 app.use(express.json());
@@ -35,12 +39,44 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Vibe Commerce API is running',
-    timestamp: new Date().toISOString(),
-  });
+app.get('/api/health', async (req, res) => {
+  try {
+    // Check database connection
+    const dbState = mongoose.connection.readyState;
+    const dbStatus = dbState === 1 ? 'connected' : 'disconnected';
+
+    const healthData = {
+      success: true,
+      message: 'Vibe Commerce API is running',
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'development',
+      database: {
+        status: dbStatus,
+        readyState: dbState
+      },
+      uptime: process.uptime(),
+      memory: process.memoryUsage(),
+      version: '1.0.0'
+    };
+
+    // If database is not connected, return 503
+    if (dbState !== 1) {
+      return res.status(503).json({
+        ...healthData,
+        success: false,
+        message: 'Database not connected'
+      });
+    }
+
+    res.status(200).json(healthData);
+  } catch (error) {
+    res.status(503).json({
+      success: false,
+      message: 'Health check failed',
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    });
+  }
 });
 
 // Root endpoint
